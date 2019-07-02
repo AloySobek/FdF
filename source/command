@@ -1,0 +1,1 @@
+gcc -I../includes -I../ft_printf/includes -I../get_next_line/includes -I../get_next_line/libft/includes fdf.c errors_handler.c lists_functions.c read_and_write_coordinates.c ../ft_printf/libftprintf.a ../get_next_line/libft/libft.a ../get_next_line/source/get_next_line.c -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit -g -o fdf
