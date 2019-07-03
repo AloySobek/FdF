@@ -1,38 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lists_functions.c                                  :+:      :+:    :+:   */
+/*   mouse_keyboard_handler.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vrichese <vrichese@student.21school.ru>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/01 18:55:58 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/03 18:19:02 by vrichese         ###   ########.fr       */
+/*   Created: 2019/07/03 19:12:21 by vrichese          #+#    #+#             */
+/*   Updated: 2019/07/03 19:21:36 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_coords	*new_point_in_space(int x, int y, int z)
+int		key_press(int key_code, void *param)
 {
-	t_coords *new_point;
-
-	if (!(new_point = (t_coords *)malloc(sizeof(t_coords))))
-		error_handler(10);
-	new_point->x = x;
-	new_point->y = y;
-	new_point->z = z;
-	new_point->next = NULL;
-	new_point->prev = NULL;
-	return (new_point);
+	return (0);
 }
 
-void		to_tie_list(t_coords **list)
+int		key_release(int key_code, void *param)
 {
-	t_coords *iter;
+	return (0);
+}
 
-	iter = *list;
-	while (iter->next)
-		iter = iter->next;
-	(*list)->prev = iter;
-	iter->next = *list;
+int		mouse_press(int button, int x, int y, void *param)
+{
+	return (0);
+}
+
+int		mouse_release(int button, int x, int y, void *param)
+{
+	return (0);
+}
+
+int		mouse_moove(int x, int y, void *param)
+{
+	return (0);
+}
+
+int		expose(void	*param)
+{
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.21school.ru>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:53:08 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/02 19:42:32 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/03 20:34:34 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef enum		e_list_manager
 	TEMP,
 }					t_list_manager;
 
-t_coords			*reading_and_write_coordinates(char *file);
+t_coords			*reading_and_write_coordinates(int fd);
 t_coords			*new_point_in_space(int x, int y, int z);
 void				to_tie_list(t_coords **list);
 void				error_handler(int code_of_errors);
