@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.21school.ru>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 16:11:31 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/03 21:16:03 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/04 20:51:03 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,34 @@
 
 int				main(int argc, char **argv)
 {
-	t_coords	*coordinates;
-	void		*connect;
-	void		*main_window;
-	int			width;
-	int			heigh;
+	t_mlx_var	*mlx_var;
 	int			fd;
 
+	mlx_var = (t_mlx_var *)malloc(sizeof(t_mlx_var));
 	argc == 1 ? error_handler(8) : 0;
 	(fd = open(argv[1], O_RDONLY)) < 0 ? error_handler(9) : 0;
-	// width = ft_atoi(argv[2]);
-	// heigh = ft_atoi(argv[3]);
-	width = 1920;
-	heigh = 1080;
-	coordinates = reading_and_write_coordinates(fd);
-	if (!(connect = mlx_init()))
+	mlx_var->width = 1920;
+	mlx_var->heigh = 1080;
+	mlx_var->scale = 15;
+	mlx_var->angle_x = 0;
+	mlx_var->angle_y = 0;
+	mlx_var->angle_z = 0;
+	mlx_var->basis_vector[0][0] = 1;
+	mlx_var->basis_vector[0][1] = 0;
+	mlx_var->basis_vector[0][2] = 0;
+	mlx_var->basis_vector[1][0] = 0;
+	mlx_var->basis_vector[1][1] = 1;
+	mlx_var->basis_vector[1][2] = 0;
+	mlx_var->basis_vector[2][0] = 0;
+	mlx_var->basis_vector[2][1] = 0;
+	mlx_var->basis_vector[2][2] = 1;
+	mlx_var->coordinates = reading_and_write_coordinates(fd);
+	if (!(mlx_var->connect = mlx_init()))
 		error_handler(1);
-	if (!(main_window = mlx_new_window(connect, width, heigh, "FdF")))
+	if (!(mlx_var->main_window = mlx_new_window(mlx_var->connect, mlx_var->width, mlx_var->heigh, "FdF")))
 		error_handler(2);
-	width -= coordinates->prev->x / 2 * 15;
-	heigh -= coordinates->prev->y / 2 * 15;
-	int i = coordinates->prev->count + 1;
-	while (i--)
-	{
-		mlx_pixel_put(connect, main_window, width / 2 + (coordinates->x * 15), heigh / 2 + (coordinates->y * 15), 111255211);
-		coordinates = coordinates->next;
-	}
-	mlx_loop(connect);
+	mlx_var->width -= mlx_var->coordinates->prev->x / 2 * 15;
+	mlx_var->heigh -= mlx_var->coordinates->prev->y / 2 * 15;
+	mlx_hook(mlx_var->main_window, 2, 0, key_press, mlx_var);
+	mlx_loop(mlx_var->connect);
 }

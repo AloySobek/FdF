@@ -6,7 +6,7 @@
 #    By: vrichese <vrichese@student.21school.ru>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/03 18:19:29 by vrichese          #+#    #+#              #
-#    Updated: 2019/07/03 20:42:24 by vrichese         ###   ########.fr        #
+#    Updated: 2019/07/04 20:20:10 by vrichese         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,13 +27,13 @@ LIBFTPRINTF	= $(PRINTF_DIR)/libftprintf.a
 LIBFT		= $(GNL_DIR)/libft/libft.a
 MLX_LIB		= -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit
 
-FILES		= $(addprefix $(SOURCE_DIR)/, fdf.c errors_handler.c lists_functions.c read_and_write_coordinates.c)
+FILES		= $(addprefix $(SOURCE_DIR)/, fdf.c errors_handler.c lists_functions.c read_and_write_coordinates.c mouse_keyboard_handler.c transformation_matrix.c)
 
 OBJ_FILES	= ${FILES:%.c=%.o}
 
 CC			= gcc
 
-CFLAGS		= -Wall -Wextra -Werror
+#CFLAGS		= -Wall -Wextra -Werror
 
 all: $(NAME)
 
