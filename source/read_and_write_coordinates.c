@@ -3,14 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   read_and_write_coordinates.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrichese <vrichese@student.21school.ru>    +#+  +:+       +#+        */
+/*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:54:40 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/03 21:01:08 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/05 13:52:21 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void			find_centre(t_coords **list_manager)
+{
+	int			x_middle;
+	int			y_middle;
+	int			x;
+	int			y;
+
+	list_manager[ITER] = list_manager[HEAD];
+	list_manager[TEMP] = list_manager[HEAD]->prev;
+	y_middle = list_manager[TEMP]->y / 2 * -1;
+	y = list_manager[TEMP]->y;
+	while (--y >= -1)
+	{
+		x = list_manager[TEMP]->x;
+		x_middle = list_manager[TEMP]->x / 2 * -1;
+		while (--x >= -1)
+		{
+			list_manager[ITER]->x = x_middle++;
+			list_manager[ITER]->y = y_middle;
+			list_manager[ITER] = list_manager[ITER]->next;
+		}
+		y_middle++;
+	}
+}
 
 t_coords		*reading_and_write_coordinates(int fd)
 {
@@ -51,5 +76,6 @@ t_coords		*reading_and_write_coordinates(int fd)
 		++y;
 	}
 	to_tie_list(&list_manager[HEAD]);
+	find_centre(&list_manager[HEAD]);
 	return (list_manager[HEAD]);
 }
