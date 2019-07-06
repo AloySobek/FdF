@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:54:40 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/05 13:52:21 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/06 21:06:20 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_coords		*reading_and_write_coordinates(int fd)
 		{
 			if (*line >= '0' && *line <= '9')
 			{
-				list_manager[ITER] = new_point_in_space(x, y, atoi(line));
+				list_manager[ITER] = new_point_in_space(x, y, ft_atoi(line));
 				if (!list_manager[HEAD])
 					list_manager[HEAD] = list_manager[ITER];
 				if (list_manager[TEMP])

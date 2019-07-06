@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:53:08 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/05 20:39:54 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/06 20:07:16 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,22 @@ typedef	struct		s_mlx_var
 {
 	void			*connect;
 	void			*main_window;
+	void			*main_image;
 	int				width;
 	int				heigh;
 	int				scale;
 	int				mouse_left_pressed;
 	int				mouse_right_pressed;
-	double			basis_vector[3][3];
-	double			angle_x;
-	double			angle_y;
-	double			angle_z;
-	double			x;
-	double			y;
-	double			z;
-	double			x_mouse;
-	double			y_mouse;
+	long double		basis_vector[3][3];
+	long double		angle_x;
+	long double		angle_y;
+	long double		angle_z;
+	long double		x;
+	long double		y;
+	long double		z;
+	long double		x_mouse;
+	long double		y_mouse;
+	t_coords		*tmp;
 	t_coords		*coordinates;
 }					t_mlx_var;
 
@@ -67,6 +69,7 @@ typedef enum		e_list_manager
 
 t_coords			*reading_and_write_coordinates(int fd);
 t_coords			*new_point_in_space(int x, int y, int z);
+void				add_frame(t_mlx_var *mlx_var);
 void				x_axis_rotation(t_mlx_var *mlx_var);
 void				y_axis_rotation(t_mlx_var *mlx_var);
 void				z_axis_rotation(t_mlx_var *mlx_var);
@@ -74,7 +77,7 @@ void				x_y_axis_rotation(t_mlx_var *mlx_var);
 void				x_y_z_axis_rotation(t_mlx_var *mlx_var);
 void				view_from_above(t_mlx_var *mlx_var);
 void				to_mirror_image(t_mlx_var *mlx_var);
-void				scalar_product_of_vectors(t_mlx_var *mlx_var);
+void				scalar_product_of_vectors(t_mlx_var *mlx_var, int test);
 void				to_tie_list(t_coords **list);
 void				error_handler(int code_of_errors);
 void				line(t_mlx_var *mlx_var, int x0, int x1, int y0, int y1);
