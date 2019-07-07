@@ -6,24 +6,21 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 16:11:31 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/06 20:11:36 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/07 20:34:02 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void			add_frame(t_mlx_var *mlx_var)
+void			fasten_event_handlers(t_mlx_var *mlx_var)
 {
-	int x;
-	int y;
-
-	x = -1;
-	while (++x < mlx_var->width)
-	{
-		y = -1;
-		while (++y < mlx_var->heigh / 10)
-			mlx_pixel_put(mlx_var->connect, mlx_var->main_window, x, y, 0x8b4513);
-	}
+	mlx_hook(mlx_var->main_window, 2, 0, key_press, mlx_var);
+	mlx_hook(mlx_var->main_window, 3, 0, key_release, mlx_var);
+	mlx_hook(mlx_var->main_window, 4, 0, mouse_press, mlx_var);
+	mlx_hook(mlx_var->main_window, 5, 0, mouse_release, mlx_var);
+	mlx_hook(mlx_var->main_window, 6, 0, mouse_moove, mlx_var);
+	mlx_hook(mlx_var->main_window, 12, 0, expose, mlx_var);
+	mlx_hook(mlx_var->main_window, 17, 0, close_window, mlx_var);
 }
 
 int				main(int argc, char **argv)
@@ -34,21 +31,22 @@ int				main(int argc, char **argv)
 	mlx_var = (t_mlx_var *)malloc(sizeof(t_mlx_var));
 	argc == 1 ? error_handler(8) : 0;
 	(fd = open(argv[1], O_RDONLY)) < 0 ? error_handler(9) : 0;
-	mlx_var->width = 1920;
-	mlx_var->heigh = 1080;
-	mlx_var->scale = 25;
-	mlx_var->angle_x = 0;
-	mlx_var->angle_y = 0;
-	mlx_var->angle_z = 0;
-	mlx_var->coordinates = reading_and_write_coordinates(fd);
+	mlx_var->screen.width = 1024;
+	mlx_var->screen.heigh = 720;
+	mlx_var->screen.scale = 15;
+	mlx_var->linear_algebra.angle_x = 0;
+	mlx_var->linear_algebra.angle_y = 0;
+	mlx_var->linear_algebra.angle_z = 0;
+	mlx_var->maps = reading_and_write_coordinates(fd);
+	mlx_var->flags.debug_mode = 0;
 	if (!(mlx_var->connect = mlx_init()))
 		error_handler(1);
-	if (!(mlx_var->main_window = mlx_new_window(mlx_var->connect, mlx_var->width, mlx_var->heigh, "FdF")))
+	if (!(mlx_var->main_window = mlx_new_window(mlx_var->connect, mlx_var->screen.width, mlx_var->screen.heigh, "FdF")))
 		error_handler(2);
-	view_from_above(mlx_var);
-	mlx_hook(mlx_var->main_window, 2, 0, key_press, mlx_var);
-	mlx_hook(mlx_var->main_window, 4, 0, mouse_press, mlx_var);
-	mlx_hook(mlx_var->main_window, 5, 0, mouse_release, mlx_var);
-	mlx_hook(mlx_var->main_window, 6, 0, mouse_moove, mlx_var);
+	if (!(mlx_var->main_image = mlx_new_image(mlx_var->connect, mlx_var->screen.width, mlx_var->screen.heigh)))
+		error_handler(3);
+	if (!(mlx_var->data_addr = mlx_get_data_addr(mlx_var->main_image, &mlx_var->bits_per_pixel, &mlx_var->size_line, &mlx_var->endian)))
+		error_handler(4);
+	fasten_event_handlers(mlx_var);
 	mlx_loop(mlx_var->connect);
 }

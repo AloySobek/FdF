@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrichese <vrichese@student.21school.ru>    +#+  +:+       +#+        */
+/*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:55:58 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/03 18:19:02 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/07 20:26:05 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_coords	*new_point_in_space(int x, int y, int z)
 	new_point->x = x;
 	new_point->y = y;
 	new_point->z = z;
+	new_point->z_tmp = z;
 	new_point->next = NULL;
 	new_point->prev = NULL;
 	return (new_point);

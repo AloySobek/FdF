@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:54:40 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/06 21:06:20 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/07 20:52:06 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,25 @@ void			find_centre(t_coords **list_manager)
 	int			x;
 	int			y;
 
-	list_manager[ITER] = list_manager[HEAD];
 	list_manager[TEMP] = list_manager[HEAD]->prev;
-	y_middle = list_manager[TEMP]->y / 2 * -1;
+	list_manager[ITER] = list_manager[HEAD];
 	y = list_manager[TEMP]->y;
-	while (--y >= -1)
+	y_middle = list_manager[TEMP]->y / 2 * -1;
+	while (y-- >= 0)
 	{
 		x = list_manager[TEMP]->x;
 		x_middle = list_manager[TEMP]->x / 2 * -1;
-		while (--x >= -1)
+		while (x-- >= 0)
 		{
 			list_manager[ITER]->x = x_middle++;
 			list_manager[ITER]->y = y_middle;
 			list_manager[ITER] = list_manager[ITER]->next;
+			if (list_manager[ITER]->count == 0)
+				break;
 		}
 		y_middle++;
+		if (list_manager[ITER]->count == 0)
+			break;
 	}
 }
 
@@ -53,7 +57,7 @@ t_coords		*reading_and_write_coordinates(int fd)
 		x = 0;
 		while (*line)
 		{
-			if (*line >= '0' && *line <= '9')
+			if ((*line >= '0' && *line <= '9') || *line == '-' || *line == '+')
 			{
 				list_manager[ITER] = new_point_in_space(x, y, ft_atoi(line));
 				if (!list_manager[HEAD])
@@ -67,7 +71,7 @@ t_coords		*reading_and_write_coordinates(int fd)
 				else
 					list_manager[ITER]->count = 0;
 				list_manager[TEMP] = list_manager[ITER];
-				while (*line && *line >= '0' && *line <= '9')
+				while (*line && *line != ' ')
 					++line;
 				++x;
 			}

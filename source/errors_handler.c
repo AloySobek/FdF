@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:47:45 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/05 20:15:04 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/07 15:38:30 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,13 @@ void	error_handler(int code_of_errors)
 	else if (code_of_errors == 2)
 		ft_printf("Window hasn't been created, exit...\n");
 	else if (code_of_errors == 3)
+		ft_printf("Image object hasn't been created, exit...\n");
+	else if (code_of_errors == 4)
+		ft_printf("Data addres hasn't been got, exit...\n");
+	else if (code_of_errors == 5)
 		ft_printf("The program has been forsibly completed...\n");
+	else if (code_of_errors == 6)
+		ft_printf("The program has been closed...\n");
 	else if (code_of_errors == 8)
 		ft_printf("Qantity of args is zero, exit...\n");
 	else if (code_of_errors == 9)
