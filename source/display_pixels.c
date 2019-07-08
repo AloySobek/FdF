@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 15:21:11 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/08 20:57:49 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/08 20:59:38 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,5 @@ void	display_pixels(t_mlx_var *mlx_var)
 		mlx_var->maps = mlx_var->maps->next;
 		flag = 1;
 	}
-	mlx_string_put(mlx_var->connect, mlx_var->main_window, mlx_var->screen.width / 10, mlx_var->screen.heigh / 10, 0xfffafa,  "Hello from that point and you are here");
 	mlx_put_image_to_window(mlx_var->connect, mlx_var->main_window, mlx_var->main_image, 0, 0);
 }

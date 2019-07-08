@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 19:22:56 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/08 16:45:26 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/08 21:14:22 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		mouse_press(int button, int x, int y, t_mlx_var *mlx_var)
 	else if (button == 2)
 		mlx_var->mouse.right_pressed = 1;
 	else if (button == 3)
-		mlx_var->screen.scale = 25;
+		mlx_var->screen.scale = mlx_var->screen.main_scale;
 	else if (button == 4)
 		mlx_var->screen.scale++;
 	else if (button == 5)

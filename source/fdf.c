@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 16:11:31 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/08 20:44:52 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/08 21:21:09 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,15 @@ int				main(int argc, char **argv)
 	mlx_var = (t_mlx_var *)malloc(sizeof(t_mlx_var));
 	argc == 1 ? error_handler(8) : 0;
 	(fd = open(argv[1], O_RDONLY)) < 0 ? error_handler(9) : 0;
+	mlx_var->maps = reading_and_write_coordinates(fd);
 	mlx_var->screen.width = 1920;
 	mlx_var->screen.heigh = 1080;
-	mlx_var->screen.scale = 15;
+	mlx_var->screen.scale = mlx_var->screen.width / (mlx_var->maps->prev->x * 4);
+	mlx_var->screen.scale == 0 ? mlx_var->screen.scale = 1 : 0;
+	mlx_var->screen.main_scale = mlx_var->screen.scale;
 	mlx_var->linear_algebra.angle_x = 0;
 	mlx_var->linear_algebra.angle_y = 0;
 	mlx_var->linear_algebra.angle_z = 0;
-	mlx_var->maps = reading_and_write_coordinates(fd);
 	mlx_var->flags.debug_mode = 0;
 	if (!(mlx_var->connect = mlx_init()))
 		error_handler(1);
