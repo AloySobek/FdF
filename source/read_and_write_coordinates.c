@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:54:40 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/07 20:52:06 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/08 16:17:53 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,14 @@ t_coords		*reading_and_write_coordinates(int fd)
 				}
 				else
 					list_manager[ITER]->count = 0;
+				if (y > 0)
+				{
+					while (list_manager[TEMP]->x != list_manager[ITER]->x)
+						list_manager[TEMP] = list_manager[TEMP]->prev;
+					list_manager[ITER]->upper = list_manager[TEMP];
+				}
+				else
+					list_manager[ITER]->upper = NULL;
 				list_manager[TEMP] = list_manager[ITER];
 				while (*line && *line != ' ')
 					++line;
