@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:53:08 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/08 16:10:20 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/08 20:44:49 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,8 @@ void				error_handler(int code_of_errors);
 void				line(t_mlx_var *mlx_var, int x0, int x1, int y0, int y1);
 void				display_pixels(t_mlx_var *mlx_var);
 void				change_altitude(t_mlx_var *mlx_var, int up);
-void				pixel_put(t_mlx_var *mlx_var, int x, int y);
+void				pixel_put(t_mlx_var *mlx_var, int x, int y, int colour);
+void				add_hint(t_mlx_var *mlx_var);
 int					key_press(int key_code, t_mlx_var *mlx_var);
 int					key_release(int key_code, t_mlx_var *mlx_var);
 int					mouse_press(int button, int x, int y, t_mlx_var *mlx_var);

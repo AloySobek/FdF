@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 19:22:56 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/08 15:20:27 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/08 16:45:26 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,11 @@ int		mouse_moove(int x, int y, t_mlx_var *mlx_var)
 			mlx_var->linear_algebra.angle_z += (0.003 * (y - mlx_var->mouse.y));
 			mlx_var->linear_algebra.angle_z += (0.003 * (x - mlx_var->mouse.x));
 		}
+		mlx_var->mouse.y = y;
+		mlx_var->mouse.x = x;
+		x_y_z_axis_rotation(mlx_var);
+		display_pixels(mlx_var);
 	}
-	mlx_var->mouse.y = y;
-	mlx_var->mouse.x = x;
-	x_y_z_axis_rotation(mlx_var);
-	display_pixels(mlx_var);
 	return (0);
 }
 

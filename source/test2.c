@@ -6,11 +6,16 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 15:23:20 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/07 20:52:09 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/08 20:44:36 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void			add_hint(t_mlx_var *mlx_var)
+{
+	mlx_string_put(mlx_var->connect, mlx_var->main_window, mlx_var->screen.width / 10, mlx_var->screen.heigh / 10, 0xfffafa,  "Hello from that point and you are here");
+}
 
 void			add_frame(t_mlx_var *mlx_var)
 {
@@ -22,7 +27,7 @@ void			add_frame(t_mlx_var *mlx_var)
 	{
 		y = -1;
 		while (++y < mlx_var->screen.heigh / 10)
-			pixel_put(mlx_var, x, y);
+			pixel_put(mlx_var, x, y, 0);
 	}
 }
 
