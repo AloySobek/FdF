@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:53:08 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/08 14:55:07 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/08 16:10:20 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct			s_coords
 	int					count;
 	struct s_coords		*next;
 	struct s_coords		*prev;
-
+	struct s_coords		*upper;
 }						t_coords;
 
 typedef	struct			s_mlx_var
