@@ -6,13 +6,13 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:55:58 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/07 20:26:05 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/08 14:30:16 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_coords	*new_point_in_space(int x, int y, int z)
+t_coords	*new_point_in_space(long double x, long double y, long double z)
 {
 	t_coords *new_point;
 

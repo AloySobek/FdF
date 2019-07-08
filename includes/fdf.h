@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:53:08 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/07 20:51:47 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/08 14:55:07 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ typedef struct			s_linear_algebra
 	long double			angle_x;
 	long double			angle_y;
 	long double			angle_z;
+	long double			vertical;
+	long double			horizontal;
 	t_vectors			vectors;
 }						t_linear_algebra;
 
@@ -71,10 +73,10 @@ typedef struct			s_mouse
 
 typedef struct			s_coords
 {
-	int					x;
-	int					y;
-	int					z;
-	int					z_tmp;
+	long double			x;
+	long double			y;
+	long double			z;
+	long double			z_tmp;
 	int					count;
 	struct s_coords		*next;
 	struct s_coords		*prev;
@@ -99,7 +101,7 @@ typedef	struct			s_mlx_var
 }						t_mlx_var;
 
 t_coords			*reading_and_write_coordinates(int fd);
-t_coords			*new_point_in_space(int x, int y, int z);
+t_coords			*new_point_in_space(long double x, long double y, long double z);
 void				add_frame(t_mlx_var *mlx_var);
 void				x_axis_rotation(t_mlx_var *mlx_var);
 void				y_axis_rotation(t_mlx_var *mlx_var);

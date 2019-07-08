@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 16:11:31 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/07 20:34:02 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/08 14:23:54 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int				main(int argc, char **argv)
 	mlx_var = (t_mlx_var *)malloc(sizeof(t_mlx_var));
 	argc == 1 ? error_handler(8) : 0;
 	(fd = open(argv[1], O_RDONLY)) < 0 ? error_handler(9) : 0;
-	mlx_var->screen.width = 1024;
-	mlx_var->screen.heigh = 720;
+	mlx_var->screen.width = 1920;
+	mlx_var->screen.heigh = 1080;
 	mlx_var->screen.scale = 15;
 	mlx_var->linear_algebra.angle_x = 0;
 	mlx_var->linear_algebra.angle_y = 0;
