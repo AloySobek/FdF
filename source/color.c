@@ -1,4 +1,4 @@
-#include "includes/fdf.h"
+#include "fdf.h"
 
 double percent(int start, int end, int current)
 {
@@ -15,7 +15,7 @@ int get_light(int start, int end, double percentage)
     return ((int)((1 - percentage) * start + percentage * end));
 }
 
-int get_color(t_put current, t_put start, t_put end, t_put delta)
+int get_color(t_col current, t_col start, t_col end, t_col delta)
 {
     int     red;
     int     green;

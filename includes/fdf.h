@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ckatelin <ckatelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:53:08 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/08 21:13:30 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/09 17:08:37 by ckatelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,17 @@ typedef	struct			s_mlx_var
 	t_coords			*maps;
 }						t_mlx_var;
 
+typedef struct			s_col
+{
+	int 				x;
+	int 				y;
+	int 				color;
+	int 				flag;
+}						t_col;
+
+double percent(int start, int end, int current);
+int get_light(int start, int end, double percentage);
+int get_color(t_col current, t_col start, t_col end, t_col delta);
 t_coords			*reading_and_write_coordinates(int fd);
 t_coords			*new_point_in_space(long double x, long double y, long double z);
 void				add_frame(t_mlx_var *mlx_var);

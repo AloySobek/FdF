@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+         #
+#    By: ckatelin <ckatelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/03 18:19:29 by vrichese          #+#    #+#              #
-#    Updated: 2019/07/07 15:26:24 by vrichese         ###   ########.fr        #
+#    Updated: 2019/07/09 17:12:40 by ckatelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,9 @@ INCLUDES	= -I./$(GNL_INCL) -I./$(LIBFT_INCL) -I./$(PRINTF_INCL) -I./includes
 
 LIBFTPRINTF	= $(PRINTF_DIR)/libftprintf.a
 LIBFT		= $(GNL_DIR)/libft/libft.a
-MLX_LIB		= -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit
+MLX_LIB		= -L ./intra_files/minilibx_macos -lmlx -framework OpenGL -framework AppKit
 
-FILES		= $(addprefix $(SOURCE_DIR)/, fdf.c errors_handler.c lists_functions.c read_and_write_coordinates.c mouse_keyboard_handler.c linear_algebra/transformation_matrix.c linear_algebra/matrix_calculations.c test2.c display_pixels.c)
+FILES		= $(addprefix $(SOURCE_DIR)/, fdf.c errors_handler.c lists_functions.c read_and_write_coordinates.c mouse_keyboard_handler.c linear_algebra/transformation_matrix.c linear_algebra/matrix_calculations.c test2.c display_pixels.c color.c)
 
 OBJ_FILES	= ${FILES:%.c=%.o}
 
