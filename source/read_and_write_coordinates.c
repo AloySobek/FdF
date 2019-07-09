@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:54:40 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/08 16:17:53 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/09 20:43:20 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void			find_centre(t_coords **list_manager)
 	}
 }
 
-t_coords		*reading_and_write_coordinates(int fd)
+t_coords		*reading_and_write_coordinates(int fd, t_mlx_var *mlx_var)
 {
 	t_coords	*list_manager[3];
 	char		*line;
@@ -61,7 +61,12 @@ t_coords		*reading_and_write_coordinates(int fd)
 			{
 				list_manager[ITER] = new_point_in_space(x, y, ft_atoi(line));
 				if (!list_manager[HEAD])
+				{
 					list_manager[HEAD] = list_manager[ITER];
+					mlx_var->color.highest = list_manager[HEAD];
+				}
+				if (mlx_var->color.highest->z < list_manager[ITER]->z)
+					mlx_var->color.highest = list_manager[ITER];
 				if (list_manager[TEMP])
 				{
 					list_manager[TEMP]->next = list_manager[ITER];

@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:53:08 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/08 21:13:30 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/09 18:04:43 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,15 @@ typedef struct			s_coords
 	struct s_coords		*upper;
 }						t_coords;
 
+typedef struct			s_color
+{
+	int					x;
+	int					y;
+	int					start;
+	int					end;
+	t_coords			*highest;
+}						t_color;
+
 typedef	struct			s_mlx_var
 {
 	void				*connect;
@@ -97,11 +106,12 @@ typedef	struct			s_mlx_var
 	t_screen			screen;
 	t_linear_algebra	linear_algebra;
 	t_mouse				mouse;
+	t_color				color;
 	t_coords			*line;
 	t_coords			*maps;
 }						t_mlx_var;
 
-t_coords			*reading_and_write_coordinates(int fd);
+t_coords			*reading_and_write_coordinates(int fd, t_mlx_var *mlx_var);
 t_coords			*new_point_in_space(long double x, long double y, long double z);
 void				add_frame(t_mlx_var *mlx_var);
 void				x_axis_rotation(t_mlx_var *mlx_var);

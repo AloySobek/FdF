@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 19:22:56 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/08 21:14:22 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/09 12:43:46 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int		key_press(int key_code, t_mlx_var *mlx_var)
 	else if (key_code == 14)
 		mlx_var->linear_algebra.angle_z -= 0.02;
 	else if (key_code == 125)
-		mlx_var->linear_algebra.vertical += 3;
+		mlx_var->linear_algebra.vertical += 10;
 	else if (key_code == 126)
-		mlx_var->linear_algebra.vertical -= 3;
+		mlx_var->linear_algebra.vertical -= 10;
 	else if (key_code == 124)
-		mlx_var->linear_algebra.horizontal += 3;
+		mlx_var->linear_algebra.horizontal += 10;
 	else if (key_code == 123)
-		mlx_var->linear_algebra.horizontal -= 3;
+		mlx_var->linear_algebra.horizontal -= 10;
 	else if (key_code == 69)
 		change_altitude(mlx_var, 1);
 	else if (key_code == 78)
