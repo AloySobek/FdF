@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_and_write_coordinates.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ckatelin <ckatelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:54:40 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/08 16:17:53 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/10 18:37:04 by ckatelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
