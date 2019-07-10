@@ -6,42 +6,51 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:54:40 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/09 20:43:20 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/10 21:24:23 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void			find_centre(t_coords **list_manager)
+void			find_centre(t_mlx_var *mlx_var, int x, int y)
 {
-	int			x_middle;
-	int			y_middle;
-	int			x;
-	int			y;
+	int	i;
 
-	list_manager[TEMP] = list_manager[HEAD]->prev;
-	list_manager[ITER] = list_manager[HEAD];
-	y = list_manager[TEMP]->y;
-	y_middle = list_manager[TEMP]->y / 2 * -1;
-	while (y-- >= 0)
+	i = mlx_var->maps->prev->count + 1;
+	while (i--)
 	{
-		x = list_manager[TEMP]->x;
-		x_middle = list_manager[TEMP]->x / 2 * -1;
-		while (x-- >= 0)
-		{
-			list_manager[ITER]->x = x_middle++;
-			list_manager[ITER]->y = y_middle;
-			list_manager[ITER] = list_manager[ITER]->next;
-			if (list_manager[ITER]->count == 0)
-				break;
-		}
-		y_middle++;
-		if (list_manager[ITER]->count == 0)
-			break;
+		mlx_var->maps->x -= x;
+		mlx_var->maps->y -= y;
+		mlx_var->maps = mlx_var->maps->next;
 	}
 }
 
-t_coords		*reading_and_write_coordinates(int fd, t_mlx_var *mlx_var)
+void			add_color(t_mlx_var *mlx_var)
+{
+	int i;
+	int	r;
+	int	g;
+	int	b;
+
+	i = mlx_var->maps->prev->count + 1;
+	while (i--)
+	{
+		if (mlx_var->maps->z == mlx_var->color.lowest->z)
+			mlx_var->maps->color = mlx_var->color.start;
+		else if (mlx_var->maps->z == mlx_var->color.highest->z)
+			mlx_var->maps->color = mlx_var->color.end;
+		else
+		{
+			r = ((mlx_var->color.start >> 16) & 0xff) + ((((mlx_var->color.end >> 16) & 0xff) - ((mlx_var->color.start >> 16) & 0xff)) / (mlx_var->color.highest->z - mlx_var->color.lowest->z)) * (mlx_var->maps->z - mlx_var->color.lowest->z);
+			g = ((mlx_var->color.start >> 8) & 0xff) + ((((mlx_var->color.end >> 8) & 0xff) - ((mlx_var->color.start >> 8) & 0xff)) / (mlx_var->color.highest->z - mlx_var->color.lowest->z)) * (mlx_var->maps->z - mlx_var->color.lowest->z);
+			b = (mlx_var->color.start & 0xff) + (((mlx_var->color.end & 0xff) - (mlx_var->color.start & 0xff)) / (mlx_var->color.highest->z - mlx_var->color.lowest->z)) * (mlx_var->maps->z - mlx_var->color.lowest->z);
+			mlx_var->maps->color = (r << 16) | (g << 8) | b;
+		}
+		mlx_var->maps = mlx_var->maps->next;
+	}
+}
+
+void			reading_and_write_coordinates(int fd, t_mlx_var *mlx_var)
 {
 	t_coords	*list_manager[3];
 	char		*line;
@@ -64,9 +73,12 @@ t_coords		*reading_and_write_coordinates(int fd, t_mlx_var *mlx_var)
 				{
 					list_manager[HEAD] = list_manager[ITER];
 					mlx_var->color.highest = list_manager[HEAD];
+					mlx_var->color.lowest = list_manager[HEAD];
 				}
 				if (mlx_var->color.highest->z < list_manager[ITER]->z)
 					mlx_var->color.highest = list_manager[ITER];
+				if (mlx_var->color.lowest->z > list_manager[ITER]->z)
+					mlx_var->color.lowest = list_manager[ITER];
 				if (list_manager[TEMP])
 				{
 					list_manager[TEMP]->next = list_manager[ITER];
@@ -93,6 +105,7 @@ t_coords		*reading_and_write_coordinates(int fd, t_mlx_var *mlx_var)
 		++y;
 	}
 	to_tie_list(&list_manager[HEAD]);
-	find_centre(&list_manager[HEAD]);
-	return (list_manager[HEAD]);
+	mlx_var->maps = list_manager[HEAD];
+	find_centre(mlx_var, mlx_var->maps->prev->x / 2, mlx_var->maps->prev->y / 2);
+	add_color(mlx_var);
 }

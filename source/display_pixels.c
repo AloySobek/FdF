@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 15:21:11 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/09 21:29:08 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/10 21:33:37 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,19 @@ void	pixel_put(t_mlx_var *mlx_var, int x, int y, int color)
     mlx_var->data_addr[i] = 0;
 }
 
-int				get_color(t_mlx_var *mlx_var, int x0, int y0, int x1, int y1, int x, int y)
+int				get_color(int f_col, int s_col, int length, int i, int fd)
 {
-	int	red;
-	int	red_start;
-	int green;
-	int green_start;
-	int	blue;
-	int	blue_start;
-	int	color;
+	int	r;
+	int	g;
+	int	b;
 
-	if (x * y <= x0 * y0)
-		return (mlx_var->color.start);
-	else if (x * y >= x1 * y1)
-		return (mlx_var->color.end);
-	red_start = mlx_var->color.start >> 16;
-	green_start = (mlx_var->color.start << 16) >> 24;
-	blue_start = (mlx_var->color.start << 24) >> 24;
-	red = mlx_var->color.end >> 16;
-	green = (mlx_var->color.end << 16) >> 24;
-	blue = (mlx_var->color.end << 24) >> 24;
-	color |= blue_start + ((x1 * y1) - (x0 * y0)) / (blue - blue_start == 0 ? 1 : blue - blue_start) * ((x * y) - (x0 * y0));
-	color |= (green_start + ((x1 * y1) - (x0 * y0)) / (green - green_start == 0 ? 1 : green - green_start) * ((x * y) - (x0 * y0))) << 8;
-	color |= (red_start + ((x1 * y1) - (x0 * y0)) / (red - red_start == 0 ? 1 : red - red_start) * ((x * y) - (x0 * y0))) << 16;
-	return (color);
+	if (f_col == s_col)
+		return (s_col);
+	r = ((f_col >> 16) & 0xff) + (((s_col >> 16) & 0xff) - ((f_col >> 16) & 0xff)) / length * i;
+	g = ((f_col >> 8) & 0xff) + (((s_col >> 8) & 0xff) - ((f_col >> 8) & 0xff)) / length * i;
+	b = (f_col & 0xff) + ((s_col & 0xff) - (f_col & 0xff)) / length * i;
+	//ft_printf("%d\n", (r << 16) | (g << 8) | b);
+	return ((r << 16) | (g << 8) | b);
 }
 
 void			display_line(t_mlx_var *mlx_var, int x1, int y1, int x2, int y2)
@@ -59,20 +48,23 @@ void			display_line(t_mlx_var *mlx_var, int x1, int y1, int x2, int y2)
 	int			y_sign;
 	int			error;
 	int			error2;
-	int			test1;
-	int			test2;
+	int			length;
+	int			i;
 
+	i = 1;
 	x_delta = abs(x2 - x1);
 	y_delta = abs(y2 - y1);
 	x_sign = x1 < x2 ? 1 : -1;
 	y_sign = y1 < y2 ? 1 : -1;
 	error = x_delta - y_delta;
-	test1 = x1;
-	test2 = x2;
-	pixel_put(mlx_var, x2, y2, get_color(mlx_var, test1, test2, x2, y2, x1, y1));
+	length = (int)sqrt(x_delta * x_delta + y_delta * y_delta);
+	pixel_put(mlx_var, x2, y2, mlx_var->line->color);
 	while(x1 != x2 || y1 != y2)
 	{
-		pixel_put(mlx_var, x1, y1, get_color(mlx_var, test1, test2, x2, y2, x1, y1));
+		if (mlx_var->line->color < mlx_var->maps->color)
+			pixel_put(mlx_var, x1, y1, get_color(mlx_var->line->color, mlx_var->maps->color, length, i++, mlx_var->test));
+		else
+			pixel_put(mlx_var, x1, y1, get_color(mlx_var->maps->color, mlx_var->line->color, length, i++, mlx_var->test));
 		error2 = error * 2;
 		if (error2 > -y_delta)
 		{
@@ -89,7 +81,6 @@ void			display_line(t_mlx_var *mlx_var, int x1, int y1, int x2, int y2)
 
 void	display_pixels(t_mlx_var *mlx_var)
 {
-	t_coords *tmp;
 	double	x;
 	double	y;
 	int flag;
@@ -102,7 +93,10 @@ void	display_pixels(t_mlx_var *mlx_var)
 	{
 		scalar_product_of_vectors(mlx_var, 0);
 		if (flag && (mlx_var->maps->prev->x == (mlx_var->maps->x - 1)))
+		{
+			mlx_var->line = mlx_var->maps->prev;
 			display_line(mlx_var, x, y, mlx_var->screen.width / 2 + mlx_var->linear_algebra.vectors.x * mlx_var->screen.scale + mlx_var->linear_algebra.horizontal, mlx_var->screen.heigh / 2 + mlx_var->linear_algebra.vectors.y * mlx_var->screen.scale + mlx_var->linear_algebra.vertical);
+		}
 		x = mlx_var->screen.width / 2 + mlx_var->linear_algebra.vectors.x * mlx_var->screen.scale + mlx_var->linear_algebra.horizontal;
 		y = mlx_var->screen.heigh / 2 + mlx_var->linear_algebra.vectors.y * mlx_var->screen.scale + mlx_var->linear_algebra.vertical;
 		if (mlx_var->maps->upper)
@@ -111,7 +105,7 @@ void	display_pixels(t_mlx_var *mlx_var)
 			scalar_product_of_vectors(mlx_var, 1);
 			display_line(mlx_var, x, y, mlx_var->screen.width / 2 + mlx_var->linear_algebra.vectors.x * mlx_var->screen.scale + mlx_var->linear_algebra.horizontal, mlx_var->screen.heigh / 2 + mlx_var->linear_algebra.vectors.y * mlx_var->screen.scale + mlx_var->linear_algebra.vertical);
 		}
-		pixel_put(mlx_var, x, y, mlx_var->color.end);
+		//pixel_put(mlx_var, x, y, mlx_var->maps->color);
 		mlx_var->maps = mlx_var->maps->next;
 		flag = 1;
 	}

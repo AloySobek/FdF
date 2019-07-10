@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:53:08 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/09 18:04:43 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/10 20:35:10 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct			s_coords
 	long double			z;
 	long double			z_tmp;
 	int					count;
+	int					color;
 	struct s_coords		*next;
 	struct s_coords		*prev;
 	struct s_coords		*upper;
@@ -90,6 +91,7 @@ typedef struct			s_color
 	int					y;
 	int					start;
 	int					end;
+	t_coords			*lowest;
 	t_coords			*highest;
 }						t_color;
 
@@ -109,10 +111,11 @@ typedef	struct			s_mlx_var
 	t_color				color;
 	t_coords			*line;
 	t_coords			*maps;
+	int test;
 }						t_mlx_var;
 
-t_coords			*reading_and_write_coordinates(int fd, t_mlx_var *mlx_var);
 t_coords			*new_point_in_space(long double x, long double y, long double z);
+void				reading_and_write_coordinates(int fd, t_mlx_var *mlx_var);
 void				add_frame(t_mlx_var *mlx_var);
 void				x_axis_rotation(t_mlx_var *mlx_var);
 void				y_axis_rotation(t_mlx_var *mlx_var);
