@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 15:21:11 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/10 21:33:37 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/11 17:29:45 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,23 @@ void	pixel_put(t_mlx_var *mlx_var, int x, int y, int color)
 
 int				get_color(int f_col, int s_col, int length, int i, int fd)
 {
-	int	r;
-	int	g;
-	int	b;
+	double	minus;
+	double	devis;
+	int		r;
+	int		g;
+	int		b;
 
 	if (f_col == s_col)
-		return (s_col);
-	r = ((f_col >> 16) & 0xff) + (((s_col >> 16) & 0xff) - ((f_col >> 16) & 0xff)) / length * i;
-	g = ((f_col >> 8) & 0xff) + (((s_col >> 8) & 0xff) - ((f_col >> 8) & 0xff)) / length * i;
-	b = (f_col & 0xff) + ((s_col & 0xff) - (f_col & 0xff)) / length * i;
-	//ft_printf("%d\n", (r << 16) | (g << 8) | b);
+		return (f_col);
+	minus = ((s_col >> 16) & 0xff) - ((f_col >> 16) & 0xff);
+	devis = minus / length;
+	r = ((f_col >> 16) & 0xff) + devis * i;
+	minus = ((s_col >> 8) & 0xff) - ((f_col >> 8) & 0xff);
+	devis = minus / length;
+	g = ((f_col >> 8) & 0xff) + devis * i;
+	minus = (s_col & 0xff) - (f_col & 0xff);
+	devis = minus / length;
+	b = (f_col & 0xff) + devis * i;
 	return ((r << 16) | (g << 8) | b);
 }
 
@@ -48,8 +55,9 @@ void			display_line(t_mlx_var *mlx_var, int x1, int y1, int x2, int y2)
 	int			y_sign;
 	int			error;
 	int			error2;
-	int			length;
+	double		length;
 	int			i;
+	int			test;
 
 	i = 1;
 	x_delta = abs(x2 - x1);
@@ -61,10 +69,15 @@ void			display_line(t_mlx_var *mlx_var, int x1, int y1, int x2, int y2)
 	pixel_put(mlx_var, x2, y2, mlx_var->line->color);
 	while(x1 != x2 || y1 != y2)
 	{
-		if (mlx_var->line->color < mlx_var->maps->color)
+		if (mlx_var->line != mlx_var->maps->upper && mlx_var->line->color < mlx_var->maps->color)
 			pixel_put(mlx_var, x1, y1, get_color(mlx_var->line->color, mlx_var->maps->color, length, i++, mlx_var->test));
 		else
-			pixel_put(mlx_var, x1, y1, get_color(mlx_var->maps->color, mlx_var->line->color, length, i++, mlx_var->test));
+		{
+			if (mlx_var->line->z > mlx_var->maps->z && mlx_var->line != mlx_var->maps->upper)
+				pixel_put(mlx_var, x1, y1, get_color(mlx_var->line->color, mlx_var->maps->color, length, i++, mlx_var->test));
+			else
+				pixel_put(mlx_var, x1, y1, get_color(mlx_var->maps->color, mlx_var->line->color, length, i++, mlx_var->test));
+		}
 		error2 = error * 2;
 		if (error2 > -y_delta)
 		{

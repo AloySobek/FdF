@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:53:08 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/10 20:35:10 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/11 16:34:50 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ typedef	struct			s_mlx_var
 	t_linear_algebra	linear_algebra;
 	t_mouse				mouse;
 	t_color				color;
+	t_coords			*f_col;
+	t_coords			*s_col;
 	t_coords			*line;
 	t_coords			*maps;
 	int test;
