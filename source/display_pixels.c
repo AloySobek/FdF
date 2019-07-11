@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 15:21:11 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/11 17:29:45 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/11 20:36:14 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	pixel_put(t_mlx_var *mlx_var, int x, int y, int color)
     mlx_var->data_addr[i] = 0;
 }
 
-int				get_color(int f_col, int s_col, int length, int i, int fd)
+int				get_color(int f_col, int s_col, int length, int i)
 {
 	double	minus;
 	double	devis;
@@ -70,13 +70,13 @@ void			display_line(t_mlx_var *mlx_var, int x1, int y1, int x2, int y2)
 	while(x1 != x2 || y1 != y2)
 	{
 		if (mlx_var->line != mlx_var->maps->upper && mlx_var->line->color < mlx_var->maps->color)
-			pixel_put(mlx_var, x1, y1, get_color(mlx_var->line->color, mlx_var->maps->color, length, i++, mlx_var->test));
+			pixel_put(mlx_var, x1, y1, get_color(mlx_var->line->color, mlx_var->maps->color, length, i++));
 		else
 		{
 			if (mlx_var->line->z > mlx_var->maps->z && mlx_var->line != mlx_var->maps->upper)
-				pixel_put(mlx_var, x1, y1, get_color(mlx_var->line->color, mlx_var->maps->color, length, i++, mlx_var->test));
+				pixel_put(mlx_var, x1, y1, get_color(mlx_var->line->color, mlx_var->maps->color, length, i++));
 			else
-				pixel_put(mlx_var, x1, y1, get_color(mlx_var->maps->color, mlx_var->line->color, length, i++, mlx_var->test));
+				pixel_put(mlx_var, x1, y1, get_color(mlx_var->maps->color, mlx_var->line->color, length, i++));
 		}
 		error2 = error * 2;
 		if (error2 > -y_delta)
@@ -96,8 +96,8 @@ void	display_pixels(t_mlx_var *mlx_var)
 {
 	double	x;
 	double	y;
-	int flag;
-	int i;
+	int		flag;
+	int		i;
 
 	flag = 0;
 	i = mlx_var->maps->prev->count + 1;
@@ -118,9 +118,10 @@ void	display_pixels(t_mlx_var *mlx_var)
 			scalar_product_of_vectors(mlx_var, 1);
 			display_line(mlx_var, x, y, mlx_var->screen.width / 2 + mlx_var->linear_algebra.vectors.x * mlx_var->screen.scale + mlx_var->linear_algebra.horizontal, mlx_var->screen.heigh / 2 + mlx_var->linear_algebra.vectors.y * mlx_var->screen.scale + mlx_var->linear_algebra.vertical);
 		}
-		//pixel_put(mlx_var, x, y, mlx_var->maps->color);
 		mlx_var->maps = mlx_var->maps->next;
 		flag = 1;
 	}
 	mlx_put_image_to_window(mlx_var->connect, mlx_var->main_window, mlx_var->main_image, 0, 0);
+	if (mlx_var->flags.hint)
+		add_hint(mlx_var);
 }

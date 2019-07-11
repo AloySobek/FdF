@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:53:08 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/11 16:34:50 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/11 20:33:06 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef enum			e_list_manager
 typedef struct			s_flags
 {
 	int					debug_mode;
+	int					hint;
+	int					z_axis_mode;
 }						t_flags;
 
 typedef struct			s_screen
@@ -70,6 +72,8 @@ typedef struct			s_mouse
 	int					right_pressed;
 	long double			x;
 	long double			y;
+	long double			rot_sensitivity;
+	long double			moove_sensitivity;
 }						t_mouse;
 
 typedef struct			s_coords
@@ -113,7 +117,6 @@ typedef	struct			s_mlx_var
 	t_coords			*s_col;
 	t_coords			*line;
 	t_coords			*maps;
-	int test;
 }						t_mlx_var;
 
 t_coords			*new_point_in_space(long double x, long double y, long double z);
@@ -134,6 +137,7 @@ void				display_pixels(t_mlx_var *mlx_var);
 void				change_altitude(t_mlx_var *mlx_var, int up);
 void				pixel_put(t_mlx_var *mlx_var, int x, int y, int colour);
 void				add_hint(t_mlx_var *mlx_var);
+void				add_color(t_mlx_var *mlx_var);
 int					key_press(int key_code, t_mlx_var *mlx_var);
 int					key_release(int key_code, t_mlx_var *mlx_var);
 int					mouse_press(int button, int x, int y, t_mlx_var *mlx_var);

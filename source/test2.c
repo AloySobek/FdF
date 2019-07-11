@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 15:23:20 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/08 20:44:36 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/11 20:56:13 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,14 @@
 
 void			add_hint(t_mlx_var *mlx_var)
 {
-	mlx_string_put(mlx_var->connect, mlx_var->main_window, mlx_var->screen.width / 10, mlx_var->screen.heigh / 10, 0xfffafa,  "Hello from that point and you are here");
-}
-
-void			add_frame(t_mlx_var *mlx_var)
-{
-	int x;
-	int y;
-
-	x = -1;
-	while (++x < mlx_var->screen.width)
-	{
-		y = -1;
-		while (++y < mlx_var->screen.heigh / 10)
-			pixel_put(mlx_var, x, y, 0);
-	}
+	mlx_string_put(mlx_var->connect, mlx_var->main_window, mlx_var->screen.width / 20, mlx_var->screen.heigh / 20, 0xfffafa,  "Control:");
+	mlx_string_put(mlx_var->connect, mlx_var->main_window, mlx_var->screen.width / 20, mlx_var->screen.heigh / 20 + 15, 0xfffafa,  "Zoom: Scroll Up(+) Scrool Down(-)");
+	mlx_string_put(mlx_var->connect, mlx_var->main_window, mlx_var->screen.width / 20, mlx_var->screen.heigh / 20 + 30, 0xfffafa,  "Rotate: Mouse move(right, left button press)");
+	mlx_string_put(mlx_var->connect, mlx_var->main_window, mlx_var->screen.width / 20, mlx_var->screen.heigh / 20 + 45, 0xfffafa,  "Move: 'z' button then left button mouse move");
+	mlx_string_put(mlx_var->connect, mlx_var->main_window, mlx_var->screen.width / 20, mlx_var->screen.heigh / 20 + 60, 0xfffafa,  "Debug mode: 'g'");
+	mlx_string_put(mlx_var->connect, mlx_var->main_window, mlx_var->screen.width / 20, mlx_var->screen.heigh / 20 + 75, 0xfffafa,  "Change color: 1, 2, 3 button at the left panel");
+	mlx_string_put(mlx_var->connect, mlx_var->main_window, mlx_var->screen.width / 20, mlx_var->screen.heigh / 20 + 90, 0xfffafa,  "Change sensitivity rotate: Up(+), Down(-)");
+	mlx_string_put(mlx_var->connect, mlx_var->main_window, mlx_var->screen.width / 20, mlx_var->screen.heigh / 20 + 105, 0xfffafa,  "Change sensitivity move: Up_end(+), Down_end(-)");
 }
 
 void	change_altitude(t_mlx_var *mlx_var, int up)

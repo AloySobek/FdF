@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 19:22:56 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/11 17:23:10 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/11 20:39:15 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,47 @@ int		key_press(int key_code, t_mlx_var *mlx_var)
 		mlx_var->linear_algebra.angle_z += 0.02;
 	else if (key_code == 14)
 		mlx_var->linear_algebra.angle_z -= 0.02;
-	else if (key_code == 125)
-		mlx_var->linear_algebra.vertical += 10;
-	else if (key_code == 126)
-		mlx_var->linear_algebra.vertical -= 10;
-	else if (key_code == 124)
-		mlx_var->linear_algebra.horizontal += 10;
-	else if (key_code == 123)
-		mlx_var->linear_algebra.horizontal -= 10;
+	else if (key_code == 6)
+		mlx_var->flags.z_axis_mode == 0 ? mlx_var->flags.z_axis_mode = 1 : (mlx_var->flags.z_axis_mode = 0);
+	else if (key_code == 116)
+		mlx_var->mouse.rot_sensitivity += 0.001;
+	else if (key_code == 121)
+		mlx_var->mouse.rot_sensitivity -= 0.001;
+	else if (key_code == 115)
+		mlx_var->mouse.moove_sensitivity += 0.1;
+	else if (key_code == 119)
+		mlx_var->mouse.moove_sensitivity -= 0.1;
 	else if (key_code == 69)
 		change_altitude(mlx_var, 1);
 	else if (key_code == 78)
 		change_altitude(mlx_var, 0);
+	else if (key_code == 83)
+	{
+		mlx_var->color.start = 0x20b2aa;
+		mlx_var->color.end = 0xadff2f;
+		add_color(mlx_var);
+	}
+	else if (key_code == 84)
+	{
+		mlx_var->color.start = 0xd2691e;
+		mlx_var->color.end = 0xdcdcdc;
+		add_color(mlx_var);
+	}
+	else if (key_code == 85)
+	{
+		mlx_var->color.start = 0x8b8b;
+		mlx_var->color.end = 0x8b008b;
+		add_color(mlx_var);
+	}
+	else if (key_code == 4)
+		mlx_var->flags.hint == 0 ? mlx_var->flags.hint = 1 : (mlx_var->flags.hint = 0);
 	else if (key_code == 49)
 	{
 		mlx_var->linear_algebra.angle_x = 1.100;
 		mlx_var->linear_algebra.angle_y = 0;
 		mlx_var->linear_algebra.angle_z = -0.880;
+		mlx_var->linear_algebra.horizontal = 0;
+		mlx_var->linear_algebra.vertical = 0;
 	}
 	else if (key_code == 53)
 	{
@@ -113,13 +137,21 @@ int		mouse_moove(int x, int y, t_mlx_var *mlx_var)
 	{
 		if (mlx_var->mouse.left_pressed)
 		{
-			mlx_var->linear_algebra.angle_x += -(0.003 * (y - mlx_var->mouse.y));
-			mlx_var->linear_algebra.angle_y += (0.003 * (x - mlx_var->mouse.x));
+			mlx_var->linear_algebra.angle_x += -(mlx_var->mouse.rot_sensitivity * (y - mlx_var->mouse.y));
+			mlx_var->linear_algebra.angle_y += (mlx_var->mouse.rot_sensitivity * (x - mlx_var->mouse.x));
 		}
 		if (mlx_var->mouse.right_pressed)
 		{
-			mlx_var->linear_algebra.angle_z += (0.003 * (y - mlx_var->mouse.y));
-			mlx_var->linear_algebra.angle_z += (0.003 * (x - mlx_var->mouse.x));
+			if (mlx_var->flags.z_axis_mode)
+			{
+				mlx_var->linear_algebra.angle_z += (mlx_var->mouse.rot_sensitivity * (y - mlx_var->mouse.y));
+				mlx_var->linear_algebra.angle_z += (mlx_var->mouse.rot_sensitivity * (x - mlx_var->mouse.x));
+			}
+			else
+			{
+				mlx_var->linear_algebra.vertical += (mlx_var->mouse.moove_sensitivity * (y - mlx_var->mouse.y));
+				mlx_var->linear_algebra.horizontal += (mlx_var->mouse.moove_sensitivity * (x - mlx_var->mouse.x));
+			}
 		}
 		mlx_var->mouse.y = y;
 		mlx_var->mouse.x = x;
