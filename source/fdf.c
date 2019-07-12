@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 16:11:31 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/11 20:33:22 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/12 13:17:01 by ckatelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void			fasten_event_handlers(t_mlx_var *mlx_var)
 	mlx_hook(mlx_var->main_window, 17, 0, close_window, mlx_var);
 }
 
-void			default_parameters(t_mlx_var *mlx_var, int argc, char **argv, int fd)
+void			default_parameters(t_mlx_var *mlx_var,
+					int argc, char **argv, int fd)
 {
 	if (argc == 4)
 	{
@@ -38,7 +39,8 @@ void			default_parameters(t_mlx_var *mlx_var, int argc, char **argv, int fd)
 	mlx_var->color.start = 0xd2691e;
 	mlx_var->color.end = 0xdcdcdc;
 	reading_and_write_coordinates(fd, mlx_var);
-	mlx_var->screen.scale = mlx_var->screen.width / (mlx_var->maps->prev->x * 4);
+	mlx_var->screen.scale = mlx_var->screen.width /
+					(mlx_var->maps->prev->x * 4);
 	mlx_var->screen.scale == 0 ? mlx_var->screen.scale = 1 : 0;
 	mlx_var->screen.main_scale = mlx_var->screen.scale;
 	mlx_var->mouse.rot_sensitivity = 0.003;

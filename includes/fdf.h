@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ckatelin <ckatelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:53:08 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/11 20:33:06 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/12 15:55:32 by ckatelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,12 @@ typedef	struct			s_mlx_var
 	t_coords			*maps;
 }						t_mlx_var;
 
+int					return_color(int k, t_mlx_var *mlx_var);
+void				checking_y(char *line, t_vectors vector, t_coords *list_manager[3]);
+void				nulling(t_coords *list_manager[3]);
+void				doing_all_stuff(t_mlx_var *mlx_var, t_coords *list_manager[3]);
+void				filler(t_coords *list_manager[3], t_mlx_var *mlx_var, t_vectors vector, char *line);
+void				find_centre(t_mlx_var *mlx_var, int x, int y);
 t_coords			*new_point_in_space(long double x, long double y, long double z);
 void				reading_and_write_coordinates(int fd, t_mlx_var *mlx_var);
 void				add_frame(t_mlx_var *mlx_var);
