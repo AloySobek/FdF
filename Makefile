@@ -6,7 +6,7 @@
 #    By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/03 18:19:29 by vrichese          #+#    #+#              #
-#    Updated: 2019/07/14 19:44:37 by vrichese         ###   ########.fr        #
+#    Updated: 2019/07/19 14:02:29 by vrichese         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ OBJ_FILES	= ${FILES:%.c=%.o}
 
 CC			= gcc
 
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -g
 
 MLX_FLAGS	= -lmlx -framework OpenGL -framework AppKit
 

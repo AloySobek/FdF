@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:55:58 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/13 18:44:14 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/19 13:51:38 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_coords		*new_point_in_space(long double x, long double y, long double z)
 	t_coords	*new_point;
 
 	if (!(new_point = (t_coords *)malloc(sizeof(t_coords))))
-		error_handler(10);
+		error_handler(MEMORY_ERROR);
 	new_point->x = x;
 	new_point->y = y;
 	new_point->z = z;

@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 18:12:36 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/14 19:55:04 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/19 15:01:47 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int		key_press2(int key_code, t_mlx_var *mlx_var)
 	{
 		mlx_destroy_window(mlx_var->io, mlx_var->window);
 		to_free_list(&mlx_var->maps, mlx_var->maps->prev->count);
+		free(mlx_var);
 		error_handler(EMERGENCY_EXIT);
 	}
 	else if (change_color(key_code, mlx_var))
@@ -104,6 +105,7 @@ int		key_press(int key_code, t_mlx_var *mlx_var)
 int		close_window(t_mlx_var *mlx_var)
 {
 	to_free_list(&mlx_var->maps, mlx_var->maps->prev->count);
+	free(mlx_var);
 	error_handler(USUAL_EXIT);
 	return (0);
 }

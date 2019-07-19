@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:53:08 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/14 18:49:26 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/19 13:50:27 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,8 @@ typedef	struct			s_mlx_var
 # define MLX_VAR_ERROR	7
 # define INCORRECT_ARGS	8
 # define FILE_ERROR		9
+# define MEMORY_ERROR	10
+# define EMPTY_LIST		11
 
 /*
 ** Linear_algebra(Matrix calculations)

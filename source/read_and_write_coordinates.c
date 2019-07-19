@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 18:54:40 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/14 20:34:15 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/19 14:58:46 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void			nulling(t_coords **list_manager)
 
 int				center_maps(t_mlx_var *mlx_var)
 {
-	int	i;
-	int	x;
-	int	y;
+	int			i;
+	int			x;
+	int			y;
 
 	x = mlx_var->maps->prev->x / 2;
 	y = mlx_var->maps->prev->y / 2;
@@ -37,8 +37,7 @@ int				center_maps(t_mlx_var *mlx_var)
 	return (1);
 }
 
-void			main_conditionals(t_mlx_var *mlx_var, t_coords **list_manager,
-								char **line, int y)
+void			main_conditionals(t_mlx_var *mlx_var, t_coords **list_manager, int y)
 {
 	if (!list_manager[HEAD] && (list_manager[HEAD] = list_manager[ITER])
 	&& (mlx_var->color.highest = list_manager[HEAD]))
@@ -57,14 +56,13 @@ void			main_conditionals(t_mlx_var *mlx_var, t_coords **list_manager,
 	if (y > 0)
 	{
 		while (list_manager[TEMP]->x != list_manager[ITER]->x)
-			list_manager[TEMP] = list_manager[TEMP]->prev;
+			if (!(list_manager[TEMP] = list_manager[TEMP]->prev))
+				error_handler(EMPTY_LIST);
 		list_manager[ITER]->upper = list_manager[TEMP];
 	}
 	else
 		list_manager[ITER]->upper = NULL;
 	list_manager[TEMP] = list_manager[ITER];
-	while (**line && **line != ' ')
-		(*line)++;
 }
 
 t_coords		*initialize_maps(int fd, t_mlx_var *mlx_var)
@@ -84,11 +82,15 @@ t_coords		*initialize_maps(int fd, t_mlx_var *mlx_var)
 			if ((*line >= '0' && *line <= '9') || *line == '-' || *line == '+')
 			{
 				list_manager[ITER] = new_point_in_space(++x, y, ft_atoi(line));
-				main_conditionals(mlx_var, &list_manager[HEAD], &line, y);
+				main_conditionals(mlx_var, &list_manager[HEAD], y);
+				while (*line && *line != ' ')
+					++line;
 			}
 			*line ? line++ : 0;
 		}
 	}
+	if (!(list_manager[HEAD]))
+		error_handler(EMPTY_LIST);
 	to_tie_list(&list_manager[HEAD]);
 	return (list_manager[HEAD]);
 }

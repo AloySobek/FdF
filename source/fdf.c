@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 16:11:31 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/14 18:10:24 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/19 13:52:42 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ t_mlx_var		*mlx_var_init(int argc, char **argv, int fd)
 {
 	t_mlx_var	*mlx_var;
 
-	mlx_var = (t_mlx_var *)malloc(sizeof(t_mlx_var));
+	if (!(mlx_var = (t_mlx_var *)malloc(sizeof(t_mlx_var))))
+		error_handler(MEMORY_ERROR);
 	mlx_var->screen.width = 1500;
 	mlx_var->screen.heigh = 1300;
 	if (argc == 4)

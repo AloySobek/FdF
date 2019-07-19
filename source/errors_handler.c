@@ -6,7 +6,7 @@
 /*   By: vrichese <vrichese@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 17:47:45 by vrichese          #+#    #+#             */
-/*   Updated: 2019/07/14 19:50:17 by vrichese         ###   ########.fr       */
+/*   Updated: 2019/07/19 13:53:46 by vrichese         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ void	error_handler(int code_of_errors)
 		ft_printf("File hasn't been opened, exit...\n");
 	else if (code_of_errors == 10)
 		ft_printf("Memory hasn't been allocated, exit...\n");
+	else if (code_of_errors == 11)
+		ft_printf("Not valid file! Nothing hasn't been readed\n");
 	exit(1);
 }
